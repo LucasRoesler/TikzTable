@@ -1,0 +1,62 @@
+\ProvidesFile{tikztable}
+
+
+\tikzset{
+	toprule/.style={%
+        execute at end cell={%
+            \draw [line cap=rect,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north west) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north east);%
+        },
+        execute at empty cell={%
+            \draw [line cap=rect,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north west) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north east);%
+        }
+    },
+    bottomrule/.style={%
+        execute at end cell={%
+            \draw [line cap=rect,shorten >=-1pt,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south west) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south east);%
+        },
+        execute at empty cell={%
+            \draw [line cap=rect,shorten >=-1pt,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south west) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south east);%
+        }
+    },
+    eastrule/.style={%
+        execute at end cell={%
+            \draw [line cap=rect,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south east) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north east);%
+        },
+        execute at empty cell={%
+            \draw [line cap=rect,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south east) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north east);%
+        }
+    },
+    westrule/.style={%
+        execute at end cell={%
+            \draw [line cap=rect,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south west) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north west);%
+        },
+        execute at empty cell={%
+            \draw [line cap=rect,#1] (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.south west) -- (\tikzmatrixname-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn.north west);%
+        }
+    },
+    table/.style={
+	  matrix of nodes,	  
+	  nodes in empty cells,
+	  inner sep=0,
+	  outer sep=0,
+	  %%
+	  minimum height = 1.5em,
+      text depth     = 0.5ex,
+      text height    = 2ex,
+      %%
+      cells = {anchor=base west,minimum width = 1cm},
+	  nodes = {inner sep=3pt},
+	},
+	pointer/.style={-stealth,thick,shorten >=2pt,overlay},
+	left margin/.style={overlay,left=#1, text width=3cm, align=right},
+	right margin/.style={overlay,right=#1, text width=3cm, align=left}
+}
+
+
+\newcommand{\leftpointer}[3][1cm]{
+	\draw[pointer] node[left margin=#1] (a) at (m-#2-1) {#3} (a) -- (m-#2-1);
+}
+
+\newcommand{\rightpointer}[3][1]{
+	\draw[pointer] node[right margin=#1] (a) at (m-#2-1) {#3} (a) -- (m-#2-1);
+}
